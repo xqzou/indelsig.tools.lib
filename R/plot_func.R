@@ -1,19 +1,18 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
+
 # Some useful keyboard shortcuts for package authoring:
 #
 #   Install Package:           'Cmd + Shift + B'
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
 
-# Plot indel profile/signature in a 89-channel bar plot for single sample
+#' Plot indel profile/signature in a 89-channel bar plot for single sample
+#'
+#' @param muts_basis A indel catalogue of a single sample
+#' @param text_size Size of text
+#' @param text_size Size of text
+#' @param plot_title Title of the plot
+#' @return A 89-channel indel profile plot
+#' @export
 gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
   #mean_parentmuts <- sum(muts_basis[,1:(dim(muts_basis)[2]-1)])/(dim(muts_basis)[2]-1)
   indel_template_type_4 <- data.frame("IndelType"=c("A|[+C]Rep=0|A","A|[+C]Rep=0|T","[+C]Rep_leq3","[+C]Rep_456","[+C]Rep_789",
@@ -69,7 +68,7 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
                                                 "Complex")
   )
 
-  muts_basis_melt <- melt(muts_basis,"IndelType")
+  muts_basis_melt <- reshape2::melt(muts_basis,"IndelType")
 
   muts_basis_melt <- merge(indel_template_type_4, muts_basis_melt,by="IndelType",all.x=T)
   muts_basis_melt[is.na(muts_basis_melt)] <- 0
@@ -102,21 +101,19 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
   blocks$labels <-c("+C", "+T", "+N", "+M", "-C", "-T", "-N", "-M", "-Mh", "X")
 
 
-  p <- ggplot(data=muts_basis_melt, aes(x=IndelType, y=freq,fill=Indel))+ geom_bar(stat="identity",position="dodge", width=.7)+xlab("Indel Types")+ylab("Count")
-  #  p <- p+scale_y_continuous(limits=c(0,40),breaks=(seq(0,40,10)))
-  p <- p+scale_x_discrete(limits = indel_positions)+ggtitle(plot_title)
-  p <- p+scale_fill_manual(values=indel_mypalette_fill)
-  p <- p+theme_classic()+theme(axis.text.x=element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
-                               axis.text.y=element_text(size=10,colour = "black"),
-                               axis.line.y=element_blank(),
+  p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
+  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ggplot2::ggtitle(plot_title)
+  p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)
+  p <- p+ggplot2::theme_classic()+ggplot2::theme(axis.text.x=ggplot2::element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
+                               axis.text.y=ggplot2::element_text(size=10,colour = "black"),
+                               axis.line.y=ggplot2::element_blank(),
                                legend.position = "none",
-                               axis.title.x = element_text(size=15),
-                               axis.title.y = element_text(size=15))
+                               axis.title.x = ggplot2::element_text(size=15),
+                               axis.title.y = ggplot2::element_text(size=15))
   ## Add the overhead blocks
 
-  p <- p+geom_rect(data = blocks, aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax,fill=Type),inherit.aes = F)+
-    # geom_text(data=blocks,aes(x=(xmax+xmin)/2,y=(ymax+ymin)/2,label=labels),size=text_size,inherit.aes = F,colour="white")
-    geom_text(data=blocks,aes(x=(xmax+xmin)/2,y=ymax*1.1,label=labels),size=text_size,inherit.aes = F)
+  p <- p+ggplot2::geom_rect(data = blocks, ggplot2::aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax,fill=Type),inherit.aes = F)+
+    ggplot2::geom_text(data=blocks,ggplot2::aes(x=(xmax+xmin)/2,y=ymax*1.1,label=labels),size=text_size,inherit.aes = F)
 
   return(p)
 
@@ -125,7 +122,17 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 }
 
 
-# Plot indel profile/signature in a 89-channel bar plot, original plots_type_4_m4_89 function
+#' Plot indel profile/signature in a 89-channel bar plot, original plots_type_4_m4_89 function
+#'
+#' @param muts_basis A indel catalogue of multiple samples
+#' @param colnum Number of columns
+#' @param h Hight of the plot
+#' @param w Width of the plot
+#' @param text_size Size of text
+#' @param outputname Output file name of the plot
+#' @return A plot including 89-channel indel profile of multiple samples
+#' @import gridExtra
+#' @export
 plots_indel_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
 
   muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
@@ -138,11 +145,14 @@ plots_indel_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
   }
 
   filename <- paste0(outputname, ".pdf")
-  pdf(file=filename, onefile=TRUE,width=w,height=h)
+  grDevices::pdf(file=filename, onefile=TRUE,width=w,height=h)
 
   do.call("grid.arrange", c(p_all, ncol = colnum))
 
 
-  dev.off()
+  grDevices::dev.off()
 
 }
+
+## quiets concerns of R CMD check re: the .'s that appear in pipelines
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))

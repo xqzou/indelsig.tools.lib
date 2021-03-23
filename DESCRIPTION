@@ -14,8 +14,8 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.10)
 Imports:
-    ggplot2
-    plyr
+    ggplot2,
+    plyr,
     reshape2,
     gridExtra,
     scales,
@@ -28,11 +28,9 @@ Imports:
     ggbeeswarm,
     umap,
     signature.tools.lib,
-    glmnetr,
     rlang
 Suggests: 
     knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-

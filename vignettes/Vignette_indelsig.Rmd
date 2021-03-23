@@ -1,10 +1,8 @@
 ---
-title: "indelsig.tools.lib"
-author: Xueqing Zou and Scott Nanda
-data: "`r Sys.Date()`"
+title: "Vignette_indelsig"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MMRDetect}
+  %\VignetteIndexEntry{Vignette_indelsig}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,6 +14,3 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(indelsig.tools.lib)
-```
