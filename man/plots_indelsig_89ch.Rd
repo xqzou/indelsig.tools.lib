@@ -4,10 +4,16 @@
 \alias{plots_indelsig_89ch}
 \title{Fixed size plot indel signatures in a 89-channel bar plot, original plots_type_4_m4_89 function}
 \usage{
-plots_indelsig_89ch(muts_basis, outputname)
+plots_indelsig_89ch(muts_basis, rownum = 5, h = 15, w = 40, outputname)
 }
 \arguments{
 \item{muts_basis}{A indel catalogue of multiple samples}
+
+\item{rownum}{Number of rowumns}
+
+\item{h}{Hight of the plot}
+
+\item{w}{Width of the plot}
 
 \item{outputname}{Output file name of the plot}
 }

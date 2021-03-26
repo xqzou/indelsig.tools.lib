@@ -158,26 +158,29 @@ plots_indel_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
 #' Fixed size plot indel signatures in a 89-channel bar plot, original plots_type_4_m4_89 function
 #'
 #' @param muts_basis A indel catalogue of multiple samples
+#' @param rownum Number of rowumns
+#' @param h Hight of the plot
+#' @param w Width of the plot
 #' @param outputname Output file name of the plot
 #' @return A plot including 89-channel indel signatures of multiple signatures
 #' @import gridExtra
 #' @export
-plots_indelsig_89ch<- function(muts_basis,outputname){
+plots_indelsig_89ch<- function(muts_basis,rownum=5, h=15,w=40,outputname){
 
   muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
   p_all <- list()
   for(i in 1:dim(muts_basis2)[2]){
 
-    p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), 5,names(muts_basis2)[i])
+    p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), 3,names(muts_basis2)[i])
     p_all[[length(p_all)+1]] <- p
 
   }
 
 
   filename <- paste0(outputname, ".pdf")
-  grDevices::pdf(file=filename, onefile=TRUE,width=10,height=10)
+  grDevices::pdf(file=filename, onefile=TRUE,width=w,height=h)
 
-  do.call("grid.arrange", c(p_all, ncol = 6, nrow=6))
+  do.call("grid.arrange", c(p_all, ncol = 6, nrow=rownum))
 
 
   grDevices::dev.off()
