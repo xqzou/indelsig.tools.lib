@@ -2,4 +2,5 @@
 
 export(gen_plot_catalouge89_single)
 export(plots_indel_89ch)
+export(plots_indelsig_89ch)
 import(gridExtra)

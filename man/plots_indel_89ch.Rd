@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_func.R
 \name{plots_indel_89ch}
 \alias{plots_indel_89ch}
-\title{Plot indel profile/signature in a 89-channel bar plot, original plots_type_4_m4_89 function}
+\title{Plot indel profile in a 89-channel bar plot, original plots_type_4_m4_89 function}
 \usage{
 plots_indel_89ch(muts_basis, colnum, h, w, text_size, outputname)
 }
@@ -23,5 +23,5 @@ plots_indel_89ch(muts_basis, colnum, h, w, text_size, outputname)
 A plot including 89-channel indel profile of multiple samples
 }
 \description{
-Plot indel profile/signature in a 89-channel bar plot, original plots_type_4_m4_89 function
+Plot indel profile in a 89-channel bar plot, original plots_type_4_m4_89 function
 }

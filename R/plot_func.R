@@ -154,11 +154,12 @@ plots_indel_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
 
 }
 
+
 #' Fixed size plot indel signatures in a 89-channel bar plot, original plots_type_4_m4_89 function
 #'
 #' @param muts_basis A indel catalogue of multiple samples
 #' @param outputname Output file name of the plot
-#' @return A plot including 89-channel indel profile of multiple samples
+#' @return A plot including 89-channel indel signatures of multiple signatures
 #' @import gridExtra
 #' @export
 plots_indelsig_89ch<- function(muts_basis,outputname){
@@ -172,6 +173,7 @@ plots_indelsig_89ch<- function(muts_basis,outputname){
 
   }
 
+
   filename <- paste0(outputname, ".pdf")
   grDevices::pdf(file=filename, onefile=TRUE,width=10,height=10)
 
@@ -181,6 +183,7 @@ plots_indelsig_89ch<- function(muts_basis,outputname){
   grDevices::dev.off()
 
 }
+
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
