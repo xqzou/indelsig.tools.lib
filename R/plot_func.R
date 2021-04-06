@@ -5,7 +5,7 @@
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
 
-#' Plot indel profile/signature in a 89-channel bar plot for single sample
+#' Old function to plot indel profile/signature in a 89-channel bar plot for single sample
 #'
 #' @param muts_basis A indel catalogue of a single sample
 #' @param text_size Size of text
@@ -13,7 +13,7 @@
 #' @param plot_title Title of the plot
 #' @return A 89-channel indel profile plot
 #' @export
-gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
+gen_plot_catalouge89_single_old<- function(muts_basis,text_size,plot_title){
   #mean_parentmuts <- sum(muts_basis[,1:(dim(muts_basis)[2]-1)])/(dim(muts_basis)[2]-1)
   indel_template_type_4 <- data.frame("IndelType"=c("A|[+C]Rep=0|A","A|[+C]Rep=0|T","[+C]Rep_leq3","[+C]Rep_456","[+C]Rep_789",
 
@@ -102,7 +102,7 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 
 
   p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
-  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ggplot2::ggtitle(plot_title)
+  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::scale_y_continuous(labels=percent)+ggplot2::ggtitle(plot_title)
   p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)
   p <- p+ggplot2::theme_classic()+ggplot2::theme(axis.text.x=ggplot2::element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
                                axis.text.y=ggplot2::element_text(size=10,colour = "black"),
@@ -114,6 +114,248 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 
   p <- p+ggplot2::geom_rect(data = blocks, ggplot2::aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax,fill=Type),inherit.aes = F)+
     ggplot2::geom_text(data=blocks,ggplot2::aes(x=(xmax+xmin)/2,y=ymax*1.1,label=labels),size=text_size,inherit.aes = F)
+
+  return(p)
+
+
+  # return(muts_basis)
+}
+
+#' Plot indel signature in a 89-channel bar plot for single sample
+#'
+#' @param muts_basis A indel catalogue of a single sample
+#' @param text_size Size of text
+#' @param text_size Size of text
+#' @param plot_title Title of the plot
+#' @return A 89-channel indel signature plot
+#' @export
+gen_plot_catalouge89_single_percentage<- function(muts_basis,text_size,plot_title){
+  #mean_parentmuts <- sum(muts_basis[,1:(dim(muts_basis)[2]-1)])/(dim(muts_basis)[2]-1)
+  indel_template_type_4 <- data.frame("IndelType"=c("A|[+C]Rep=0|A","A|[+C]Rep=0|T","[+C]Rep_leq3","[+C]Rep_456","[+C]Rep_789",
+
+
+                                                    "A|[+T]Rep_leq4|A","A|[+T]Rep_leq4|C","A|[+T]Rep_leq4|G","C|[+T]Rep_leq4|A","C|[+T]Rep_leq4|C","C|[+T]Rep_leq4|G","G|[+T]Rep_leq4|A","G|[+T]Rep_leq4|C","G|[+T]Rep_leq4|G",
+                                                    "A|[+T]Rep_567|A","A|[+T]Rep_567|C","A|[+T]Rep_567|G","C|[+T]Rep_567|A","C|[+T]Rep_567|C","C|[+T]Rep_567|G","G|[+T]Rep_567|A","G|[+T]Rep_567|C","G|[+T]Rep_567|G",
+                                                    "A|[+T]Rep_89|A","A|[+T]Rep_89|C","A|[+T]Rep_89|G","C|[+T]Rep_89|A","C|[+T]Rep_89|C","C|[+T]Rep_89|G","G|[+T]Rep_89|A","G|[+T]Rep_89|C","G|[+T]Rep_89|G",
+
+
+                                                    "Ins_nMer_R234","Ins_nMer_R5",
+                                                    "Ins_NonRep_R0_L234","Ins_NonRep_R0_L5","Ins_NonRep_R1_L234","Ins_NonRep_R1_L5",
+
+                                                    "[-C]Rep=1|A","[-C]Rep=1|T",
+                                                    "[-C]Rep=2|A","[-C]Rep=2|T",
+                                                    "[-C]Rep=3|A","[-C]Rep=3|T",
+                                                    "[-C]Rep_45|A","[-C]Rep_45|T",
+                                                    "[-C]Rep_leq5|G",
+                                                    "[-C]Rep_6",
+
+                                                    "A|[-T]Rep_leq4|A","A|[-T]Rep_leq4|C","A|[-T]Rep_leq4|G","C|[-T]Rep_leq4|A","C|[-T]Rep_leq4|C","C|[-T]Rep_leq4|G","G|[-T]Rep_leq4|A","G|[-T]Rep_leq4|C","G|[-T]Rep_leq4|G",
+                                                    "A|[-T]Rep_567|A","A|[-T]Rep_567|C","A|[-T]Rep_567|G","C|[-T]Rep_567|A","C|[-T]Rep_567|C","C|[-T]Rep_567|G","G|[-T]Rep_567|A","G|[-T]Rep_567|C","G|[-T]Rep_567|G",
+                                                    "A|[-T]Rep_89|A","A|[-T]Rep_89|C","A|[-T]Rep_89|G","C|[-T]Rep_89|A","C|[-T]Rep_89|C","C|[-T]Rep_89|G","G|[-T]Rep_89|A","G|[-T]Rep_89|C","G|[-T]Rep_89|G",
+
+                                                    "Del_nMer_U12_R234","Del_nMer_U12_R5","Del_nMer_U3_R2","Del_nMer_U3_R3",
+                                                    "Del_NonRep_L234","Del_NonRep_L5",
+
+                                                    "Del_Spaced_short_leq5_mh1","Del_Spaced_short_leq5_mh2","Del_Spaced_short_leq5_mh3",
+                                                    "Del_Spaced_long_g5_mh1","Del_Spaced_long_g5_mh2", "Del_Spaced_long_g5_mh3","Del_Spaced_long_g5_mh4",
+                                                    "Complex"),
+
+                                      "Indel"=c("[+C]","[+C]","[+C]","[+C]","[+C]",
+
+
+                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
+                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
+                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
+
+                                                "Ins_nMer","Ins_nMer",
+                                                "Ins_NonRep","Ins_NonRep","Ins_NonRep","Ins_NonRep",
+
+                                                "[-C]","[-C]","[-C]","[-C]","[-C]","[-C]","[-C]","[-C]",
+                                                "[-C]","[-C]",
+
+
+                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
+                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
+                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
+
+
+                                                "Del_nMer","Del_nMer","Del_nMer","Del_nMer",
+                                                "Del_NonRep","Del_NonRep",
+
+                                                "Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced",
+                                                "Complex")
+  )
+
+  muts_basis_melt <- reshape2::melt(muts_basis,"IndelType")
+
+  muts_basis_melt <- merge(indel_template_type_4, muts_basis_melt,by="IndelType",all.x=T)
+  muts_basis_melt[is.na(muts_basis_melt)] <- 0
+  names(muts_basis_melt) <- c("IndelType","Indel","Sample","freq")
+  muts_basis_melt$Sample <- as.character(muts_basis_melt$Sample)
+
+
+  # indel_mypalette_fill <- c("skyblue","orange", "blue","tomato","greenyellow","pink","grey","purple","deeppink","black")
+  indel_mypalette_fill <- c("#06C2F4", # [-C]
+                            "#FF8642", # [-T]
+                            "royalblue", #"#007996"  [+C]
+                            "#C0362C", # [+T]
+                            "#000000", # FEABB9 Complex
+                            "#B1DDA1", # Del_nMer
+                            "#C3B7AC", # Del_NonRep
+                            "#CF97D7", # Del_Spaced
+                            "limegreen", #"#668D3C"  Ins_nMer
+                            "#816C5B")  # Ins_NonRep
+
+  indel_positions <- indel_template_type_4$IndelType
+  entry <- table(indel_template_type_4$Indel)
+  order_entry <- c("[+C]", "[+T]", "Ins_nMer", "Ins_NonRep", "[-C]", "[-T]", "Del_nMer", "Del_NonRep", "Del_Spaced", "Complex")
+  entry <- entry[order_entry]
+  blocks <- data.frame(Type=unique(indel_template_type_4$Indel),
+                       fill=indel_mypalette_fill,
+                       xmin=c(0,cumsum(entry)[-length(entry)])+0.5,
+                       xmax=cumsum(entry)+0.5)
+  blocks$ymin <- max(muts_basis_melt$freq)*1.08#
+  blocks$ymax <- max(muts_basis_melt$freq)*1.2
+  blocks$labels <-c("+C", "+T", "+M", "+N", "-C", "-T", "-M", "-N", "-Mh", "X")
+  blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
+
+
+  p <- ggplot2::ggplot(data=muts_basis_melt, aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Percentage")
+  #  p <- p+scale_y_continuous(limits=c(0,40),breaks=(seq(0,40,10)))
+  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::scale_y_continuous(labels=percent)+ggplot2::ggtitle(plot_title)
+  p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)+ggplot2::coord_cartesian(ylim=c(0,unique(blocks$ymax)), expand = FALSE)
+  p <- p+ggplot2::theme_classic()+ggplot2::theme(axis.text.x=ggplot2::element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
+                               axis.text.y=ggplot2::element_text(size=10,colour = "black"),
+                               #    axis.line.y=element_blank(),
+                               legend.position = "none",
+                               axis.title.x = ggplot2::element_text(size=15),
+                               axis.title.y = ggplot2::element_text(size=15))
+  ## Add the overhead blocks
+
+  p <- p+ggplot2::geom_rect(data = blocks, ggplot2::aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax,fill=Type),inherit.aes = F)+
+    # geom_text(data=blocks,aes(x=(xmax+xmin)/2,y=(ymax+ymin)/2,label=labels),size=text_size,inherit.aes = F,colour="white")
+    ggplot2::geom_text(data=blocks,ggplot2::aes(x=(xmax+xmin)/2,y=(ymax+ymin)/2,label=labels, colour=cl),size=text_size,fontface="bold",inherit.aes = F)+ggplot2::scale_colour_manual(values=c("black", "white"))
+
+  return(p)
+
+
+  # return(muts_basis)
+}
+
+#' Plot indel profile in a 89-channel bar plot for single sample
+#'
+#' @param muts_basis A indel catalogue of a single sample
+#' @param text_size Size of text
+#' @param text_size Size of text
+#' @param plot_title Title of the plot
+#' @return A 89-channel indel profile plot
+#' @export
+gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
+  #mean_parentmuts <- sum(muts_basis[,1:(dim(muts_basis)[2]-1)])/(dim(muts_basis)[2]-1)
+  indel_template_type_4 <- data.frame("IndelType"=c("A|[+C]Rep=0|A","A|[+C]Rep=0|T","[+C]Rep_leq3","[+C]Rep_456","[+C]Rep_789",
+
+
+                                                    "A|[+T]Rep_leq4|A","A|[+T]Rep_leq4|C","A|[+T]Rep_leq4|G","C|[+T]Rep_leq4|A","C|[+T]Rep_leq4|C","C|[+T]Rep_leq4|G","G|[+T]Rep_leq4|A","G|[+T]Rep_leq4|C","G|[+T]Rep_leq4|G",
+                                                    "A|[+T]Rep_567|A","A|[+T]Rep_567|C","A|[+T]Rep_567|G","C|[+T]Rep_567|A","C|[+T]Rep_567|C","C|[+T]Rep_567|G","G|[+T]Rep_567|A","G|[+T]Rep_567|C","G|[+T]Rep_567|G",
+                                                    "A|[+T]Rep_89|A","A|[+T]Rep_89|C","A|[+T]Rep_89|G","C|[+T]Rep_89|A","C|[+T]Rep_89|C","C|[+T]Rep_89|G","G|[+T]Rep_89|A","G|[+T]Rep_89|C","G|[+T]Rep_89|G",
+
+
+                                                    "Ins_nMer_R234","Ins_nMer_R5",
+                                                    "Ins_NonRep_R0_L234","Ins_NonRep_R0_L5","Ins_NonRep_R1_L234","Ins_NonRep_R1_L5",
+
+                                                    "[-C]Rep=1|A","[-C]Rep=1|T",
+                                                    "[-C]Rep=2|A","[-C]Rep=2|T",
+                                                    "[-C]Rep=3|A","[-C]Rep=3|T",
+                                                    "[-C]Rep_45|A","[-C]Rep_45|T",
+                                                    "[-C]Rep_leq5|G",
+                                                    "[-C]Rep_6",
+
+                                                    "A|[-T]Rep_leq4|A","A|[-T]Rep_leq4|C","A|[-T]Rep_leq4|G","C|[-T]Rep_leq4|A","C|[-T]Rep_leq4|C","C|[-T]Rep_leq4|G","G|[-T]Rep_leq4|A","G|[-T]Rep_leq4|C","G|[-T]Rep_leq4|G",
+                                                    "A|[-T]Rep_567|A","A|[-T]Rep_567|C","A|[-T]Rep_567|G","C|[-T]Rep_567|A","C|[-T]Rep_567|C","C|[-T]Rep_567|G","G|[-T]Rep_567|A","G|[-T]Rep_567|C","G|[-T]Rep_567|G",
+                                                    "A|[-T]Rep_89|A","A|[-T]Rep_89|C","A|[-T]Rep_89|G","C|[-T]Rep_89|A","C|[-T]Rep_89|C","C|[-T]Rep_89|G","G|[-T]Rep_89|A","G|[-T]Rep_89|C","G|[-T]Rep_89|G",
+
+                                                    "Del_nMer_U12_R234","Del_nMer_U12_R5","Del_nMer_U3_R2","Del_nMer_U3_R3",
+                                                    "Del_NonRep_L234","Del_NonRep_L5",
+
+                                                    "Del_Spaced_short_leq5_mh1","Del_Spaced_short_leq5_mh2","Del_Spaced_short_leq5_mh3",
+                                                    "Del_Spaced_long_g5_mh1","Del_Spaced_long_g5_mh2", "Del_Spaced_long_g5_mh3","Del_Spaced_long_g5_mh4",
+                                                    "Complex"),
+
+                                      "Indel"=c("[+C]","[+C]","[+C]","[+C]","[+C]",
+
+
+                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
+                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
+                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
+
+                                                "Ins_nMer","Ins_nMer",
+                                                "Ins_NonRep","Ins_NonRep","Ins_NonRep","Ins_NonRep",
+
+                                                "[-C]","[-C]","[-C]","[-C]","[-C]","[-C]","[-C]","[-C]",
+                                                "[-C]","[-C]",
+
+
+                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
+                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
+                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
+
+
+                                                "Del_nMer","Del_nMer","Del_nMer","Del_nMer",
+                                                "Del_NonRep","Del_NonRep",
+
+                                                "Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced",
+                                                "Complex")
+  )
+
+  muts_basis_melt <- reshape2::melt(muts_basis,"IndelType")
+
+  muts_basis_melt <- merge(indel_template_type_4, muts_basis_melt,by="IndelType",all.x=T)
+  muts_basis_melt[is.na(muts_basis_melt)] <- 0
+  names(muts_basis_melt) <- c("IndelType","Indel","Sample","freq")
+  muts_basis_melt$Sample <- as.character(muts_basis_melt$Sample)
+
+
+  # indel_mypalette_fill <- c("skyblue","orange", "blue","tomato","greenyellow","pink","grey","purple","deeppink","black")
+  indel_mypalette_fill <- c("#06C2F4", # [-C]
+                            "#FF8642", # [-T]
+                            "royalblue", #"#007996"  [+C]
+                            "#C0362C", # [+T]
+                            "#000000", # FEABB9 Complex
+                            "#B1DDA1", # Del_nMer
+                            "#C3B7AC", # Del_NonRep
+                            "#CF97D7", # Del_Spaced
+                            "limegreen", #"#668D3C"  Ins_nMer
+                            "#816C5B")  # Ins_NonRep
+
+  indel_positions <- indel_template_type_4$IndelType
+  entry <- table(indel_template_type_4$Indel)
+  order_entry <- c("[+C]", "[+T]", "Ins_nMer", "Ins_NonRep", "[-C]", "[-T]", "Del_nMer", "Del_NonRep", "Del_Spaced", "Complex")
+  entry <- entry[order_entry]
+  blocks <- data.frame(Type=unique(indel_template_type_4$Indel),
+                       fill=indel_mypalette_fill,
+                       xmin=c(0,cumsum(entry)[-length(entry)])+0.5,
+                       xmax=cumsum(entry)+0.5)
+  blocks$ymin <- max(muts_basis_melt$freq)*1.08#
+  blocks$ymax <- max(muts_basis_melt$freq)*1.2
+  blocks$labels <-c("+C", "+T", "+M", "+N", "-C", "-T", "-M", "-N", "-Mh", "X")
+  blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
+
+
+  p <- ggplot2::ggplot(data=muts_basis_melt, aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
+  #  p <- p+scale_y_continuous(limits=c(0,40),breaks=(seq(0,40,10)))
+  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::ggtitle(plot_title)
+  p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)+ggplot2::coord_cartesian(ylim=c(0,unique(blocks$ymax)), expand = FALSE)
+  p <- p+ggplot2::theme_classic()+ggplot2::theme(axis.text.x=ggplot2::element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
+                                                 axis.text.y=ggplot2::element_text(size=10,colour = "black"),
+                                                 #    axis.line.y=element_blank(),
+                                                 legend.position = "none",
+                                                 axis.title.x = ggplot2::element_text(size=15),
+                                                 axis.title.y = ggplot2::element_text(size=15))
+  ## Add the overhead blocks
+
+  p <- p+ggplot2::geom_rect(data = blocks, ggplot2::aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax,fill=Type),inherit.aes = F)+
+    # geom_text(data=blocks,aes(x=(xmax+xmin)/2,y=(ymax+ymin)/2,label=labels),size=text_size,inherit.aes = F,colour="white")
+    ggplot2::geom_text(data=blocks,ggplot2::aes(x=(xmax+xmin)/2,y=(ymax+ymin)/2,label=labels, colour=cl),size=text_size,fontface="bold",inherit.aes = F)+ggplot2::scale_colour_manual(values=c("black", "white"))
 
   return(p)
 
@@ -133,7 +375,7 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 #' @return A plot including 89-channel indel profile of multiple samples
 #' @import gridExtra
 #' @export
-plots_indel_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
+plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
 
   muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
   p_all <- list()
@@ -171,7 +413,7 @@ plots_indelsig_89ch<- function(muts_basis,rownum=5, h=15,w=40,outputname){
   p_all <- list()
   for(i in 1:dim(muts_basis2)[2]){
 
-    p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), 3,names(muts_basis2)[i])
+    p <- gen_plot_catalouge89_single_percentage(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), 3,names(muts_basis2)[i])
     p_all[[length(p_all)+1]] <- p
 
   }

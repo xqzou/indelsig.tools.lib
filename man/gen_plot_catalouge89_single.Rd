@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_func.R
 \name{gen_plot_catalouge89_single}
 \alias{gen_plot_catalouge89_single}
-\title{Plot indel profile/signature in a 89-channel bar plot for single sample}
+\title{Plot indel profile in a 89-channel bar plot for single sample}
 \usage{
 gen_plot_catalouge89_single(muts_basis, text_size, plot_title)
 }
@@ -17,5 +17,5 @@ gen_plot_catalouge89_single(muts_basis, text_size, plot_title)
 A 89-channel indel profile plot
 }
 \description{
-Plot indel profile/signature in a 89-channel bar plot for single sample
+Plot indel profile in a 89-channel bar plot for single sample
 }
