@@ -375,7 +375,7 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 #' @return A plot including 89-channel indel profile of multiple samples
 #' @import gridExtra
 #' @export
-plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
+plots_indelprofile_89ch<- function(muts_basis,colnum=6, h=15,w,text_size,outputname){
 
   muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
   p_all <- list()

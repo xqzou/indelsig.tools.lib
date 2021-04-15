@@ -4,7 +4,14 @@
 \alias{plots_indelprofile_89ch}
 \title{Plot indel profile in a 89-channel bar plot, original plots_type_4_m4_89 function}
 \usage{
-plots_indelprofile_89ch(muts_basis, colnum, h, w, text_size, outputname)
+plots_indelprofile_89ch(
+  muts_basis,
+  colnum = 6,
+  h = 15,
+  w,
+  text_size,
+  outputname
+)
 }
 \arguments{
 \item{muts_basis}{A indel catalogue of multiple samples}
