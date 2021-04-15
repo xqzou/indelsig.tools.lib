@@ -102,7 +102,7 @@ gen_plot_catalouge89_single_old<- function(muts_basis,text_size,plot_title){
 
 
   p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
-  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::scale_y_continuous(labels=percent)+ggplot2::ggtitle(plot_title)
+  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::scale_y_continuous(labels=scales::percent)+ggplot2::ggtitle(plot_title)
   p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)
   p <- p+ggplot2::theme_classic()+ggplot2::theme(axis.text.x=ggplot2::element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
                                axis.text.y=ggplot2::element_text(size=10,colour = "black"),
@@ -220,9 +220,9 @@ gen_plot_catalouge89_single_percentage<- function(muts_basis,text_size,plot_titl
   blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
 
 
-  p <- ggplot2::ggplot(data=muts_basis_melt, aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Percentage")
+  p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Percentage")
   #  p <- p+scale_y_continuous(limits=c(0,40),breaks=(seq(0,40,10)))
-  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::scale_y_continuous(labels=percent)+ggplot2::ggtitle(plot_title)
+  p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::scale_y_continuous(labels=scales::percent)+ggplot2::ggtitle(plot_title)
   p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)+ggplot2::coord_cartesian(ylim=c(0,unique(blocks$ymax)), expand = FALSE)
   p <- p+ggplot2::theme_classic()+ggplot2::theme(axis.text.x=ggplot2::element_text(angle=90, vjust=0.5, size=5,colour = "black",hjust=1),
                                axis.text.y=ggplot2::element_text(size=10,colour = "black"),
@@ -375,7 +375,7 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 #' @return A plot including 89-channel indel profile of multiple samples
 #' @import gridExtra
 #' @export
-plots_indelprofile_89ch<- function(muts_basis,colnum=6, h=15,w,text_size,outputname){
+plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
 
   muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
   p_all <- list()
