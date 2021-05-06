@@ -9,7 +9,6 @@
 #'
 #' @param muts_basis A indel catalogue of a single sample
 #' @param text_size Size of text
-#' @param text_size Size of text
 #' @param plot_title Title of the plot
 #' @return A 89-channel indel profile plot
 #' @export
@@ -124,7 +123,6 @@ gen_plot_catalouge89_single_old<- function(muts_basis,text_size,plot_title){
 #' Plot indel signature in a 89-channel bar plot for single sample
 #'
 #' @param muts_basis A indel catalogue of a single sample
-#' @param text_size Size of text
 #' @param text_size Size of text
 #' @param plot_title Title of the plot
 #' @return A 89-channel indel signature plot
@@ -245,7 +243,6 @@ gen_plot_catalouge89_single_percentage<- function(muts_basis,text_size,plot_titl
 #' Plot indel profile in a 89-channel bar plot for single sample
 #'
 #' @param muts_basis A indel catalogue of a single sample
-#' @param text_size Size of text
 #' @param text_size Size of text
 #' @param plot_title Title of the plot
 #' @return A 89-channel indel profile plot
