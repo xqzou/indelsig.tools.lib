@@ -29,7 +29,7 @@ plot_sig_percentage <- function(sample_sig_count, SampleCol, h,w,text_size,outpu
                         panel.grid.minor.y = ggplot2::element_blank(),
                         panel.background = ggplot2::element_rect(fill = "white"),
                         panel.border = ggplot2::element_rect(colour = "black", fill=NA))
-  print(g)
+  print(p)
   grDevices::dev.off()
 }
 
@@ -64,6 +64,6 @@ plot_sig_count <- function(sample_sig_count, SampleCol, h,w,text_size,outputname
                         panel.background = ggplot2::element_rect(fill = "white"),
                         panel.border = ggplot2::element_rect(colour = "black", fill=NA))
 
-  print(g)
+  print(p)
   grDevices::dev.off()
 }

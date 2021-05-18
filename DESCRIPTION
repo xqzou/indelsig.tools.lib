@@ -6,7 +6,7 @@ Author: Xueqing Zou and Scott Nanda
 Maintainer: Xueqing Zou <xz388@cam.ac.uk>
 Description: indelsig.tools.lib is an R package for analyzing indel signatures from sequencing data. 
     Use four spaces when indenting paragraphs within the Description.
-License: `use_mit_license()`
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -28,7 +28,9 @@ Imports:
     ggbeeswarm,
     umap,
     signature.tools.lib,
-    rlang
+    rlang,
+    grDevices,
+    utils
 Suggests: 
     knitr,
     rmarkdown,

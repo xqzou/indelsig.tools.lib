@@ -38,7 +38,7 @@ cal_cossim_2sigsets <- function(sigset1,sigset2,h,w,text_size,ifplot=T,outputnam
   }
   simi_matrix <- data.frame(simi_matrix)
   simi_matrix$sigset2 <- colnames(sigset2)
-  simi_matrix_melt <- reshape::melt(simi_matrix,c("sigset2"))
+  simi_matrix_melt <- reshape2::melt(simi_matrix,c("sigset2"))
   names(simi_matrix_melt) <- c("sigset2","sigset1","similarity")
   cosmig_pos <- simi_matrix$sigset2
   write.table(simi_matrix,paste0(outputname,".txt"),sep = "\t",row.names = F, col.names = T, quote = F)
@@ -75,6 +75,7 @@ cal_cossim_2sigsets <- function(sigset1,sigset2,h,w,text_size,ifplot=T,outputnam
     simi_matrix_melt_temp <- simi_matrix_melt_temp[!(simi_matrix_melt_temp$sigset2 %in% sigpairs$sigset2 | simi_matrix_melt_temp$sigset1 %in% sigpairs$sigset1),]
   }
   sigpairs <- sigpairs[order(sigpairs$similarity, decreasing = T),]
+  write.table(sigpairs,paste0(outputname,"_similarpair.txt"),sep = "\t",row.names = F, col.names = T, quote = F)
 
   if(ifplot==T){
     sigpairs$similarity <- round(sigpairs$similarity,2)
@@ -99,3 +100,4 @@ cal_cossim_2sigsets <- function(sigset1,sigset2,h,w,text_size,ifplot=T,outputnam
 
   return(simi_matrix_melt)
 }
+
