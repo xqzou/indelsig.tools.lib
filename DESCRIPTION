@@ -30,9 +30,13 @@ Imports:
     signature.tools.lib,
     rlang,
     grDevices,
-    utils
+    utils,
+    Rcpp,
+    Biostrings
 Suggests: 
     knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
+LinkingTo: 
+    Rcpp
