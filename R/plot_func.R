@@ -338,7 +338,7 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
   blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
 
 
-  p <- ggplot2::ggplot(data=muts_basis_melt, aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
+  p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
   #  p <- p+scale_y_continuous(limits=c(0,40),breaks=(seq(0,40,10)))
   p <- p+ggplot2::scale_x_discrete(limits = indel_positions)+ ggplot2::ggtitle(plot_title)
   p <- p+ggplot2::scale_fill_manual(values=indel_mypalette_fill)+ggplot2::coord_cartesian(ylim=c(0,unique(blocks$ymax)), expand = FALSE)
@@ -392,6 +392,7 @@ plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
   grDevices::dev.off()
 
 }
+
 
 
 #' Fixed size plot indel signatures in a 89-channel bar plot, original plots_type_4_m4_89 function
