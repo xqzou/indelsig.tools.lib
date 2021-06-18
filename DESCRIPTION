@@ -38,4 +38,5 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-
+LinkingTo: 
+    Rcpp
