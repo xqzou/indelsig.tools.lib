@@ -5,12 +5,13 @@
 #' @return The cosine similarity between two vectors
 #' @export
 cos_similarity <- function(v1,v2){
+  v1 <- v1/sum(v1)
+  v2 <- v2/sum(v2)
   v1v2 <- sum(v1*v2)
   v1_length <- sqrt(sum(v1*v1))
   v2_length <- sqrt(sum(v2*v2))
   return(v1v2/v1_length/v2_length)
 }
-
 
 #' Calculate cosine similarity between two signature/profile sets
 #'
