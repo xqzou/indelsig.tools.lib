@@ -374,22 +374,34 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 #' @export
 plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,outputname){
 
-  muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
-  p_all <- list()
-  for(i in 1:dim(muts_basis2)[2]){
+  cnames <- names(muts_basis)
+  cnames <- cnames[cnames !="IndelType"]
+  if(length(cnames)>1){
+    muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
+    p_all <- list()
+    for(i in 1:dim(muts_basis2)[2]){
 
-    p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), text_size,names(muts_basis2)[i])
-    p_all[[length(p_all)+1]] <- p
+      p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), text_size,names(muts_basis2)[i])
+      p_all[[length(p_all)+1]] <- p
+
+    }
+
+    filename <- paste0(outputname, ".pdf")
+    grDevices::pdf(file=filename, onefile=TRUE,width=w,height=h)
+
+    do.call("grid.arrange", c(p_all, ncol = colnum))
+    grDevices::dev.off()
+
+  }else{
+    p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis[,cnames],"IndelType"=rownames(muts_basis)), text_size,cnames)
+    filename <- paste0(outputname, ".pdf")
+    grDevices::pdf(file=filename, onefile=TRUE,width=10,height=5)
+
+    do.call("grid.arrange", c(p, ncol = 1))
+    grDevices::dev.off()
+
 
   }
-
-  filename <- paste0(outputname, ".pdf")
-  grDevices::pdf(file=filename, onefile=TRUE,width=w,height=h)
-
-  do.call("grid.arrange", c(p_all, ncol = colnum))
-
-
-  grDevices::dev.off()
 
 }
 
