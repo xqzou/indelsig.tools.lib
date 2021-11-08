@@ -65,3 +65,7 @@ gen_catalogue21 <- function(muts_list, sample_col){
   return(indel_catalogue[,-1])
 
 }
+
+
+
+
