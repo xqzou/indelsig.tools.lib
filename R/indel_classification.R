@@ -18,7 +18,8 @@ indel_classifier89 <- function(indels, genome.v){
   s <- segment_indels(prep_df) #get('segment_indels',envir = .GlobalEnv)(prep_df$change,prep_df$slice3)
 
   s$mh_length <- s$indel.length-s$spacer_length
-  s[s$mh_length>s$prime3_reps,"mh_length"] <- s[s$mh_length>s$prime3_reps,"prime3_reps"]
+  s$prime3_rep_length <- nchar(s$prime3_rep)
+  s[s$mh_length>s$prime3_rep_length,"mh_length"] <- s[s$mh_length>s$prime3_rep_length,"prime3_rep_length"]
 
   ## Assign indels m5
   s_classified <- assign_channels_m5(s)
