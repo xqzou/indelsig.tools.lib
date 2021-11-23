@@ -249,60 +249,6 @@ gen_plot_catalouge89_single_percentage<- function(muts_basis,text_size,plot_titl
 #' @export
 gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
   #mean_parentmuts <- sum(muts_basis[,1:(dim(muts_basis)[2]-1)])/(dim(muts_basis)[2]-1)
-  indel_template_type_4 <- data.frame("IndelType"=c("A|[+C]Rep=0|A","A|[+C]Rep=0|T","[+C]Rep_leq3","[+C]Rep_456","[+C]Rep_789",
-
-
-                                                    "A|[+T]Rep_leq4|A","A|[+T]Rep_leq4|C","A|[+T]Rep_leq4|G","C|[+T]Rep_leq4|A","C|[+T]Rep_leq4|C","C|[+T]Rep_leq4|G","G|[+T]Rep_leq4|A","G|[+T]Rep_leq4|C","G|[+T]Rep_leq4|G",
-                                                    "A|[+T]Rep_567|A","A|[+T]Rep_567|C","A|[+T]Rep_567|G","C|[+T]Rep_567|A","C|[+T]Rep_567|C","C|[+T]Rep_567|G","G|[+T]Rep_567|A","G|[+T]Rep_567|C","G|[+T]Rep_567|G",
-                                                    "A|[+T]Rep_89|A","A|[+T]Rep_89|C","A|[+T]Rep_89|G","C|[+T]Rep_89|A","C|[+T]Rep_89|C","C|[+T]Rep_89|G","G|[+T]Rep_89|A","G|[+T]Rep_89|C","G|[+T]Rep_89|G",
-
-
-                                                    "Ins_nMer_R234","Ins_nMer_R5",
-                                                    "Ins_NonRep_R0_L234","Ins_NonRep_R0_L5","Ins_NonRep_R1_L234","Ins_NonRep_R1_L5",
-
-                                                    "[-C]Rep=1|A","[-C]Rep=1|T",
-                                                    "[-C]Rep=2|A","[-C]Rep=2|T",
-                                                    "[-C]Rep=3|A","[-C]Rep=3|T",
-                                                    "[-C]Rep_45|A","[-C]Rep_45|T",
-                                                    "[-C]Rep_leq5|G",
-                                                    "[-C]Rep_6",
-
-                                                    "A|[-T]Rep_leq4|A","A|[-T]Rep_leq4|C","A|[-T]Rep_leq4|G","C|[-T]Rep_leq4|A","C|[-T]Rep_leq4|C","C|[-T]Rep_leq4|G","G|[-T]Rep_leq4|A","G|[-T]Rep_leq4|C","G|[-T]Rep_leq4|G",
-                                                    "A|[-T]Rep_567|A","A|[-T]Rep_567|C","A|[-T]Rep_567|G","C|[-T]Rep_567|A","C|[-T]Rep_567|C","C|[-T]Rep_567|G","G|[-T]Rep_567|A","G|[-T]Rep_567|C","G|[-T]Rep_567|G",
-                                                    "A|[-T]Rep_89|A","A|[-T]Rep_89|C","A|[-T]Rep_89|G","C|[-T]Rep_89|A","C|[-T]Rep_89|C","C|[-T]Rep_89|G","G|[-T]Rep_89|A","G|[-T]Rep_89|C","G|[-T]Rep_89|G",
-
-                                                    "Del_nMer_U12_R234","Del_nMer_U12_R5","Del_nMer_U3_R2","Del_nMer_U3_R3",
-                                                    "Del_NonRep_L234","Del_NonRep_L5",
-
-                                                    "Del_Spaced_short_leq5_mh1","Del_Spaced_short_leq5_mh2","Del_Spaced_short_leq5_mh3",
-                                                    "Del_Spaced_long_g5_mh1","Del_Spaced_long_g5_mh2", "Del_Spaced_long_g5_mh3","Del_Spaced_long_g5_mh4",
-                                                    "Complex"),
-
-                                      "Indel"=c("[+C]","[+C]","[+C]","[+C]","[+C]",
-
-
-                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
-                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
-                                                "[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]","[+T]",
-
-                                                "Ins_nMer","Ins_nMer",
-                                                "Ins_NonRep","Ins_NonRep","Ins_NonRep","Ins_NonRep",
-
-                                                "[-C]","[-C]","[-C]","[-C]","[-C]","[-C]","[-C]","[-C]",
-                                                "[-C]","[-C]",
-
-
-                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
-                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
-                                                "[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]","[-T]",
-
-
-                                                "Del_nMer","Del_nMer","Del_nMer","Del_nMer",
-                                                "Del_NonRep","Del_NonRep",
-
-                                                "Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced","Del_Spaced",
-                                                "Complex")
-  )
 
   muts_basis_melt <- reshape2::melt(muts_basis,"IndelType")
 
@@ -313,20 +259,29 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
 
 
   # indel_mypalette_fill <- c("skyblue","orange", "blue","tomato","greenyellow","pink","grey","purple","deeppink","black")
-  indel_mypalette_fill <- c("#06C2F4", # [-C]
-                            "#FF8642", # [-T]
-                            "royalblue", #"#007996"  [+C]
-                            "#C0362C", # [+T]
-                            "#000000", # FEABB9 Complex
-                            "#B1DDA1", # Del_nMer
-                            "#C3B7AC", # Del_NonRep
-                            "#CF97D7", # Del_Spaced
-                            "limegreen", #"#668D3C"  Ins_nMer
-                            "#816C5B")  # Ins_NonRep
+#  indel_mypalette_fill <- c("#06C2F4", # [-C]
+  #                            "#FF8642", # [-T]
+  #                            "royalblue", #"#007996"  [+C]
+  #                          "#C0362C", # [+T]
+  #                          "#000000", # FEABB9 Complex
+  #                          "#B1DDA1", # Del_nMer
+  #                      #    "#C3B7AC", # Del_NonRep
+  #                          "#CF97D7", # Del_Spaced
+  #                          "limegreen") #"#668D3C"  Ins_nMer
+  #                      #    "#816C5B")  # Ins_NonRep
+
+  indel_mypalette_fill <- c("#000000", # FEABB9 Complex
+                            "#CF97D7", # Del:L(2,):M(1,)
+                            "#B2E289", # Del:L(2,):R(0,)
+                            "#06C2F4", # Del:L1:C
+                            "#FF8642", # Del:L1:T
+                            "#4B8C61", #"#668D3C"  Ins:L(2,)
+                            "royalblue", #"#007996"  Ins:L1:C
+                            "#C0362C") # Ins:L1:T
 
   indel_positions <- indel_template_type_4$IndelType
   entry <- table(indel_template_type_4$Indel)
-  order_entry <- c("[+C]", "[+T]", "Ins_nMer", "Ins_NonRep", "[-C]", "[-T]", "Del_nMer", "Del_NonRep", "Del_Spaced", "Complex")
+  order_entry <- c("Ins:L1:C", "Ins:L1:T", "Ins:L(2,)", "Del:L1:C", "Del:L1:T", "Del:L(2,):R(0,)", "Del:L(2,):M(1,)", "Complex")
   entry <- entry[order_entry]
   blocks <- data.frame(Type=unique(indel_template_type_4$Indel),
                        fill=indel_mypalette_fill,
@@ -334,8 +289,8 @@ gen_plot_catalouge89_single<- function(muts_basis,text_size,plot_title){
                        xmax=cumsum(entry)+0.5)
   blocks$ymin <- max(muts_basis_melt$freq)*1.08#
   blocks$ymax <- max(muts_basis_melt$freq)*1.2
-  blocks$labels <-c("+C", "+T", "+M", "+N", "-C", "-T", "-M", "-N", "-Mh", "X")
-  blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
+  blocks$labels <-c("+C", "+T", "+L", "-C", "-T", "-L", "-M", "X")
+  blocks$cl <-c("white", "white", "white",  "black", "black", "black", "black", "white")
 
 
   p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
