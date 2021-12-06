@@ -94,7 +94,7 @@ assign_channels_m5 <- function(indel.df) {
     ## [+C]: A|[+C]Rep=0|A/T      A[Ins:L1:C:R0]A
     indel.b2 <- subset(indel.b1, change_pyr=="C" & prime3_reps==0 & rep_slice5=="A" & rep_slice3%in% c("A","T"))
     if(dim(indel.b2)[1]>0){
-      indel.b2$type_4 <- paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,":L",indel.b2$indel.length,":",indel.b2$change_pyr,":R", indel.b2$prime3_reps, "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <- paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,"(",indel.b2$change_pyr,"):R", indel.b2$prime3_reps, "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
 
@@ -103,9 +103,9 @@ assign_channels_m5 <- function(indel.df) {
     if(dim(indel.b2)[1]>0){
 
       indel.b2$type_4=""
-      if(dim(indel.b2[indel.b2$prime3_reps<=3,])[1]>0){indel.b2[indel.b2$prime3_reps<=3,]$type_4 <-"[Ins:L1:C:R(0,3)]"}
-      if(dim(indel.b2[indel.b2$prime3_reps%in%c(4,5,6),])[1]>0){indel.b2[indel.b2$prime3_reps%in%c(4,5,6),]$type_4 <-"[Ins:L1:C:R(4,6)]"}
-      if(dim(indel.b2[indel.b2$prime3_reps%in%c(7,8,9),])[1]>0){indel.b2[indel.b2$prime3_reps%in%c(7,8,9),]$type_4 <-"[Ins:L1:C:R(7,9)]"}
+      if(dim(indel.b2[indel.b2$prime3_reps<=3,])[1]>0){indel.b2[indel.b2$prime3_reps<=3,]$type_4 <-"Ins(C):R(0,3)"}
+      if(dim(indel.b2[indel.b2$prime3_reps%in%c(4,5,6),])[1]>0){indel.b2[indel.b2$prime3_reps%in%c(4,5,6),]$type_4 <-"Ins(C):R(4,6)"}
+      if(dim(indel.b2[indel.b2$prime3_reps%in%c(7,8,9),])[1]>0){indel.b2[indel.b2$prime3_reps%in%c(7,8,9),]$type_4 <-"Ins(C):R(7,9)"}
       indel.new <- rbind(indel.new,indel.b2)
     }
 
@@ -113,7 +113,7 @@ assign_channels_m5 <- function(indel.df) {
     indel.b2 <- subset(indel.b1,change_pyr=="T" & prime3_reps%in% c(0,1,2,3,4))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, ":L",indel.b2$indel.length,":",indel.b2$change_pyr,":R(0,4)","]",indel.b2$rep_slice3)
+      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, "(",indel.b2$change_pyr,"):R(0,4)","]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
 
     }
@@ -121,14 +121,14 @@ assign_channels_m5 <- function(indel.df) {
     indel.b2 <- subset(indel.b1,change_pyr=="T" & prime3_reps%in% c(5,6,7))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, ":L",indel.b2$indel.length,":",indel.b2$change_pyr,":R(5,7)","]",indel.b2$rep_slice3)
+      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, "(",indel.b2$change_pyr,"):R(5,7)","]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
     ##  A/C/G|[+T]Rep=8,9|A/C/G 252483
     indel.b2 <- subset(indel.b1,change_pyr=="T" & prime3_reps%in% c(8,9))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, ":L",indel.b2$indel.length,":",indel.b2$change_pyr,":R(8,9)","]",indel.b2$rep_slice3)
+      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, "(",indel.b2$change_pyr,"):R(8,9)","]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
 
@@ -140,8 +140,8 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_2 <- paste0("Ins_nMer")
     indel.b1$type_3 <- paste0("Ins_nMer_",indel.b1$rep_level)
     indel.b1$type_4 <- paste0("Ins_nMer_","R",indel.b1$prime3_reps)
-    if(dim(indel.b1[indel.b1$prime3_reps<=4,])[1]>0){indel.b1[indel.b1$prime3_reps<=4,"type_4"] <- "[Ins:L(2,):R(2,4)]"}
-    if(dim(indel.b1[indel.b1$prime3_reps>4,])[1]>0){indel.b1[indel.b1$prime3_reps>4,"type_4"] <- "[Ins:L(2,):R(5,)]"}
+    if(dim(indel.b1[indel.b1$prime3_reps<=4,])[1]>0){indel.b1[indel.b1$prime3_reps<=4,"type_4"] <- "Ins(2,):R(2,4)"}
+    if(dim(indel.b1[indel.b1$prime3_reps>4,])[1]>0){indel.b1[indel.b1$prime3_reps>4,"type_4"] <- "Ins(2,):R(5,9)"}
     indel.new <- rbind(indel.new,indel.b1)
   }
 
@@ -152,8 +152,8 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_2 <- "Ins_NonRep"
     indel.b1$type_3 <- "Ins_NonRep"
     indel.b1$type_4 <- "Ins_NonRep_R1"
-    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "[Ins:L(5,):R1]"}
-    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "[Ins:L(2,4):R1]"}
+    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "Ins(5,):R1"}
+    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "Ins(2,4):R1"}
     indel.new <- rbind(indel.new,indel.b1)
   }
   # + NonRep TR=0 & spacer_length==0 # spacer unavailable. the whole indel is spacer [Ins:L(2,4):R0] [Ins:L(5,):R0]
@@ -165,8 +165,8 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_2 <- "Ins_NonRep"
     indel.b1$type_3 <- "Ins_NonRep"
     indel.b1$type_4 <- "Ins_NonRep_R0"
-    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "[Ins:L(5,):R0]"}
-    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "[Ins:L(2,4):R0]"}
+    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "Ins(5,):R0"}
+    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "Ins(2,4):R0"}
     indel.new <- rbind(indel.new,indel.b1)
   }
   # + NonRep TR=0 & spacer_length>0
@@ -179,8 +179,8 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_3 <- "Ins_NonRep"
     indel.b1$type_4 <- "Ins_NonRep_R0"
 
-    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "[Ins:L(5,):R0]"}
-    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "[Ins:L(2,4):R0]"}
+    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "Ins(5,):R0"}
+    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "Ins(2,4):R0"}
 
     indel.new <- rbind(indel.new,indel.b1)
   }
@@ -210,7 +210,7 @@ assign_channels_m5 <- function(indel.df) {
     indel.b2 <- subset(indel.b1, change_pyr=="C" & original_reps<=3 & rep_slice3%in% c("A","T"))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- paste0("[", indel.b2$type_1,":L",indel.b2$indel.length,":",indel.b2$change_pyr,":R",indel.b2$original_reps, "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <- paste0("[", indel.b2$type_1,"(",indel.b2$change_pyr,"):R",indel.b2$original_reps, "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
 
@@ -218,43 +218,43 @@ assign_channels_m5 <- function(indel.df) {
     indel.b2 <- subset(indel.b1, change_pyr=="C" & original_reps%in%c(4,5) & rep_slice3%in% c("A","T"))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- paste0("[",indel.b2$type_1,":L",indel.b2$indel.length,":",indel.b2$change_pyr,":R(4,5)", "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <- paste0("[",indel.b2$type_1,"(",indel.b2$change_pyr,"):R(4,5)", "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
     ## [-C]: [-C]Rep_leq5|G   [Del:L1:C:R(,5)]G
     indel.b2 <- subset(indel.b1, change_pyr=="C" & original_reps<=5 & rep_slice3=="G")
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- paste0("[",indel.b2$type_1,":L",indel.b2$indel.length,":", indel.b2$change_pyr,":R(0,5)", "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <- paste0("[",indel.b2$type_1,"(",indel.b2$change_pyr,"):R(1,5)", "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
-    ##  [-C]Rep=6,7  39844    [Del:L1:C:R(6,)]
+    ##  [-C]Rep=6,7  39844    [Del:L1:C:R(6,9)]
     indel.b2 <- subset(indel.b1,change_pyr=="C" & original_reps>=6 )
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0("[",indel.b2$type_1,":L",indel.b2$indel.length,":", indel.b2$change_pyr,":R(6,)]")
+      indel.b2$type_4 <-paste0(indel.b2$type_1,"(", indel.b2$change_pyr,"):R(6,9)")
       indel.new <- rbind(indel.new,indel.b2)
     }
 
-    ##  A/C/G|[-T]Rep=1,2,3,4|A/C/G 51541    A[Del:L1:T:R(,4)]A
+    ##  A/C/G|[-T]Rep=1,2,3,4|A/C/G 51541    A[Del:L1:T:R(1,4)]A
     indel.b2 <- subset(indel.b1,change_pyr=="T" & original_reps%in% c(1,2,3,4))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,":L",indel.b2$indel.length, ":",indel.b2$change_pyr,":R(,4)", "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,"(",indel.b2$change_pyr,"):R(1,4)", "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
     ##  A/C/G|[-T]Rep=5-7|A/C/G 517592   A[Del:L1:T:R(5,7)]A
     indel.b2 <- subset(indel.b1,change_pyr=="T" & original_reps%in% c(5,6,7))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,":L",indel.b2$indel.length, ":", indel.b2$change_pyr,":R(5,7)", "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,"(", indel.b2$change_pyr,"):R(5,7)", "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
     ##  A/C/G|[-T]Rep=8,9|A/C/G 550381   A[Del:L1:T:R(8,9)]A
     indel.b2 <- subset(indel.b1,change_pyr=="T" & original_reps%in% c(8,9))
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1,":L",indel.b2$indel.length, ":", indel.b2$change_pyr,":R(8,9)", "]",indel.b2$rep_slice3)
+      indel.b2$type_4 <-paste0(indel.b2$rep_slice5,"[",indel.b2$type_1, "(", indel.b2$change_pyr,"):R(8,9)", "]",indel.b2$rep_slice3)
       indel.new <- rbind(indel.new,indel.b2)
     }
 
@@ -266,10 +266,10 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_2 <- paste0("Del_nMer")
     indel.b1$type_3 <- paste0("Del_nMer_",indel.b1$rep_level)
     indel.b1$type_4 <- paste0("Del_nMer","_R",indel.b1$original_reps)
-    if(dim(indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps<5,])[1]>0){indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps<5,"type_4"] <- "[Del:L(2,):U(1,2):R(2,4)]"}
-    if(dim(indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps>=5,])[1]>0){indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps>=5,"type_4"] <- "[Del:L(2,):U(1,2):R(5,)]"}
-    if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,"type_4"] <- "[Del:L(2,):U(3,):R2]"}
-    if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps>2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps>2,"type_4"] <- "[Del:L(3,):U(3,):R(3,)]"}
+    if(dim(indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps<5,])[1]>0){indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps<5,"type_4"] <- "Del(2,8):U(1,2):R(2,4)"}
+    if(dim(indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps>=5,])[1]>0){indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps>=5,"type_4"] <- "Del(2,):U(1,2):R(5,9)"}
+    if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,"type_4"] <- "Del(2,):U(3,):R2"}
+    if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps>2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps>2,"type_4"] <- "Del(3,):U(3,):R(3,9)"}
     indel.new <- rbind(indel.new,indel.b1)
   }
   # - Spaced # 12903  [Del:L(,5):M1] [Del:L(,5):M2]  [Del:L(,5):M(3,4)]  [Del:L(6,):M1]  [Del:L(6,):M2]  [Del:L(6,):M3]  [Del:L(6,):M(4,)]
@@ -281,11 +281,12 @@ assign_channels_m5 <- function(indel.df) {
     if(dim(indel.b1[indel.b1$indel.length<=5,])[1]>0){indel.b1[indel.b1$indel.length<=5,"type_3"] <- "Del_Spaced_short_leq5"}
     if(dim(indel.b1[indel.b1$indel.length>5,])[1]>0){indel.b1[indel.b1$indel.length>5,"type_3"] <- "Del_Spaced_long_g5"}
 
-    if(dim(indel.b1[indel.b1$indel.length<=5,])[1]>0){indel.b1[indel.b1$indel.length<=5,"type_4"] <- paste0("[Del:L(2,5):M", indel.b1[indel.b1$indel.length<=5,"mh_length"],"]")}
-    if(dim(indel.b1[indel.b1$indel.length>5,])[1]>0){indel.b1[indel.b1$indel.length>5,"type_4"] <- paste0("[Del:L(6,):M", indel.b1[indel.b1$indel.length>5,"mh_length",],"]")}
+    if(dim(indel.b1[indel.b1$indel.length<=5,])[1]>0){indel.b1[indel.b1$indel.length<=5 & indel.b1$mh==1,"type_4"] <- "Del(2,5):M1"}
+    if(dim(indel.b1[indel.b1$indel.length<=5,])[1]>0){indel.b1[indel.b1$indel.length<=5 & indel.b1$mh==2,"type_4"] <- "Del(3,5):M2"}
+    if(dim(indel.b1[indel.b1$indel.length>5,])[1]>0){indel.b1[indel.b1$indel.length>5,"type_4"] <- paste0("Del(6,):M", indel.b1[indel.b1$indel.length>5,"mh_length",])}
 
-    if(dim(indel.b1[indel.b1$indel.length<=5 & indel.b1$mh>=3,])[1]>0){indel.b1[indel.b1$indel.length<=5 & indel.b1$mh>=3,"type_4"] <- "[Del:L(2,5):M(3,4)]"}
-    if(dim(indel.b1[indel.b1$indel.length>5 & indel.b1$mh>=4,])[1]>0){indel.b1[indel.b1$indel.length>5 & indel.b1$mh>=4,"type_4"] <- "[Del:L(6,):M(4,)]"}
+    if(dim(indel.b1[indel.b1$indel.length<=5 & indel.b1$mh>=3,])[1]>0){indel.b1[indel.b1$indel.length<=5 & indel.b1$mh>=3,"type_4"] <- "Del(4,5):M(3,4)"}
+    if(dim(indel.b1[indel.b1$indel.length>5 & indel.b1$mh>=4,])[1]>0){indel.b1[indel.b1$indel.length>5 & indel.b1$mh>=4,"type_4"] <- "Del(6,):M(4,)"}
     indel.new <- rbind(indel.new,indel.b1)
   }
 
@@ -296,8 +297,8 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_2 <- "Del_NonRep"
     indel.b1$type_3 <- "Del_NonRep"
     indel.b1$type_4 <- paste0("Del_NonRep_L",indel.b1$indel.length)
-    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "[Del:L(2,4):R1]"}
-    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "[Del:L(5,):R1]"}
+    if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "Del(2,4):R1"}
+    if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "Del(5,):R1"}
     indel.new <- rbind(indel.new,indel.b1)
   }
   # Complex # 11821

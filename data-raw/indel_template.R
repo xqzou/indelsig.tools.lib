@@ -11,4 +11,8 @@ indel_template_type_3 <- data.frame("IndelType"=c("[+C]NonRep","[+C]ShortRep_leq
 
 
 indel_template_type_4 <- read.table("./indel_template_type_4.txt", sep = "\t",header = T, as.is = T)
-usethis::use_data(indel_template_type_4, compress = "xz", overwrite = T)
+usethis::use_data(indel_template_type_4,overwrite = TRUE)
+
+indel_type_4_figurelabel <- read.table("./indel_type_4_figurelabel.txt", sep = "\t",header = T, as.is = T)
+usethis::use_data(indel_type_4_figurelabel,overwrite = TRUE)
+
