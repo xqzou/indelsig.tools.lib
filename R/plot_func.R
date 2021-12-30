@@ -480,8 +480,9 @@ plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,print_Xlabel
 
   cnames <- names(muts_basis)
   cnames <- cnames[cnames !="IndelType"]
+  muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
+
   if(length(cnames)>1){
-    muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
     p_all <- list()
     for(i in 1:dim(muts_basis2)[2]){
 
@@ -539,8 +540,9 @@ plots_indelprofile_89ch_noXlabel<- function(muts_basis,colnum, h,w,text_size,out
 
   cnames <- names(muts_basis)
   cnames <- cnames[cnames !="IndelType"]
+  muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
+
   if(length(cnames)>1){
-    muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
     p_all <- list()
     for(i in 1:dim(muts_basis2)[2]){
 

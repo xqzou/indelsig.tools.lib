@@ -39,36 +39,7 @@ divid_indelcat <- function(mut_cat,cutoff=500,outputname){
 #' @export
 hclust_indel<- function(mut_cat,hclust_method = "complete",tissue_type,ncluster=6, cutoff_height=NULL){
 
-  indel_template_type_4_m5 <- data.frame("type_4"=c("A|[+C]Rep=0|A","A|[+C]Rep=0|T","[+C]Rep_leq3","[+C]Rep_456","[+C]Rep_789",
-
-
-                                                    "A|[+T]Rep_leq4|A","A|[+T]Rep_leq4|C","A|[+T]Rep_leq4|G","C|[+T]Rep_leq4|A","C|[+T]Rep_leq4|C","C|[+T]Rep_leq4|G","G|[+T]Rep_leq4|A","G|[+T]Rep_leq4|C","G|[+T]Rep_leq4|G",
-                                                    "A|[+T]Rep_567|A","A|[+T]Rep_567|C","A|[+T]Rep_567|G","C|[+T]Rep_567|A","C|[+T]Rep_567|C","C|[+T]Rep_567|G","G|[+T]Rep_567|A","G|[+T]Rep_567|C","G|[+T]Rep_567|G",
-                                                    "A|[+T]Rep_89|A","A|[+T]Rep_89|C","A|[+T]Rep_89|G","C|[+T]Rep_89|A","C|[+T]Rep_89|C","C|[+T]Rep_89|G","G|[+T]Rep_89|A","G|[+T]Rep_89|C","G|[+T]Rep_89|G",
-
-                                                    "Ins_NonRep_R0_L234","Ins_NonRep_R0_L5","Ins_NonRep_R1_L234","Ins_NonRep_R1_L5",
-
-                                                    "Ins_nMer_R234","Ins_nMer_R5",
-
-                                                    "[-C]Rep=1|A","[-C]Rep=1|T",
-                                                    "[-C]Rep=2|A","[-C]Rep=2|T",
-                                                    "[-C]Rep=3|A","[-C]Rep=3|T",
-                                                    "[-C]Rep_45|A","[-C]Rep_45|T",
-                                                    "[-C]Rep_leq5|G",
-                                                    "[-C]Rep_6",
-
-                                                    "A|[-T]Rep_leq4|A","A|[-T]Rep_leq4|C","A|[-T]Rep_leq4|G","C|[-T]Rep_leq4|A","C|[-T]Rep_leq4|C","C|[-T]Rep_leq4|G","G|[-T]Rep_leq4|A","G|[-T]Rep_leq4|C","G|[-T]Rep_leq4|G",
-                                                    "A|[-T]Rep_567|A","A|[-T]Rep_567|C","A|[-T]Rep_567|G","C|[-T]Rep_567|A","C|[-T]Rep_567|C","C|[-T]Rep_567|G","G|[-T]Rep_567|A","G|[-T]Rep_567|C","G|[-T]Rep_567|G",
-                                                    "A|[-T]Rep_89|A","A|[-T]Rep_89|C","A|[-T]Rep_89|G","C|[-T]Rep_89|A","C|[-T]Rep_89|C","C|[-T]Rep_89|G","G|[-T]Rep_89|A","G|[-T]Rep_89|C","G|[-T]Rep_89|G",
-
-                                                    "Del_NonRep_L234","Del_NonRep_L5",
-                                                    "Del_nMer_U12_R234","Del_nMer_U12_R5","Del_nMer_U3_R2","Del_nMer_U3_R3",
-                                                    "Del_Spaced_short_leq5_mh1","Del_Spaced_short_leq5_mh2","Del_Spaced_short_leq5_mh3",
-                                                    "Del_Spaced_long_g5_mh1","Del_Spaced_long_g5_mh2", "Del_Spaced_long_g5_mh3","Del_Spaced_long_g5_mh4",
-                                                    "Complex"))
-
-
-  mut_cat <- mut_cat[match(indel_template_type_4_m5$type_4, rownames(mut_cat)),]
+  mut_cat <- mut_cat[match(indel_template_type_4_m5$IndelType, rownames(mut_cat)),]
 
   mut_cat <- t(mut_cat)
 
