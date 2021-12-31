@@ -39,7 +39,7 @@ divid_indelcat <- function(mut_cat,cutoff=500,outputname){
 #' @export
 hclust_indel<- function(mut_cat,hclust_method = "complete",tissue_type,ncluster=6, cutoff_height=NULL){
 
-  mut_cat <- mut_cat[match(indel_template_type_4_m5$IndelType, rownames(mut_cat)),]
+  mut_cat <- mut_cat[match(indel_template_type_4$IndelType, rownames(mut_cat)),]
 
   mut_cat <- t(mut_cat)
 
