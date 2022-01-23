@@ -489,10 +489,10 @@ plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,print_Xlabel
 
   }else{
     if(print_Xlabel==T){
-      p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), text_size,plottitle)
+      p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,1],"IndelType"=rownames(muts_basis2)), text_size,plottitle)
 
     }else{
-      p <- gen_plot_catalouge89_single_noXlabel(data.frame("Sample"=muts_basis2[,i],"IndelType"=rownames(muts_basis2)), text_size,plottitle)
+      p <- gen_plot_catalouge89_single_noXlabel(data.frame("Sample"=muts_basis2[,1],"IndelType"=rownames(muts_basis2)), text_size,plottitle)
 
     }
     filename <- paste0(outputname, ".pdf")
