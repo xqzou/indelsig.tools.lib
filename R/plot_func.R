@@ -461,8 +461,9 @@ gen_plot_catalouge89_single_noXlabel<- function(muts_basis,text_size,plot_title)
 plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,print_Xlabel=T,outputname){
 
   cnames <- names(muts_basis)
-  cnames <- cnames[cnames !="IndelType"]
-  muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
+#  cnames <- cnames[cnames !="IndelType"]
+#  muts_basis2 <- muts_basis[,names(muts_basis) != "IndelType"]
+  muts_basis2 <- muts_basis
 
   if(length(cnames)>1){
     p_all <- list()
