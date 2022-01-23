@@ -488,6 +488,8 @@ plots_indelprofile_89ch<- function(muts_basis,colnum, h,w,text_size,print_Xlabel
     grDevices::dev.off()
 
   }else{
+    plottitle <- paste0(names(muts_basis2)[1], ", N =", sum(muts_basis2[,1]))
+
     if(print_Xlabel==T){
       p <- gen_plot_catalouge89_single(data.frame("Sample"=muts_basis2[,1],"IndelType"=rownames(muts_basis2)), text_size,plottitle)
 
