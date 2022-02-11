@@ -13,7 +13,7 @@ gen_catalogue89 <- function(muts_list, sample_col){
   indel_catalogue <- merge(indel_template_type_4,indel_catalogue,by="IndelType",all.x=T)
   indel_catalogue[is.na(indel_catalogue)] <- 0
   rownames(indel_catalogue) <- indel_catalogue[,"IndelType"]
-  return(indel_catalogue[,-c(1:2)])
+  return(indel_catalogue[,-c(1:2),drop=FALSE])
 }
 
 

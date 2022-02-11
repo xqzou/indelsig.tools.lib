@@ -268,7 +268,7 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_4 <- paste0("Del_nMer","_R",indel.b1$original_reps)
     if(dim(indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps<5,])[1]>0){indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps<5,"type_4"] <- "Del(2,8):U(1,2):R(2,4)"}
     if(dim(indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps>=5,])[1]>0){indel.b1[indel.b1$unit_length<=2 & indel.b1$original_reps>=5,"type_4"] <- "Del(2,):U(1,2):R(5,9)"}
-    if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,"type_4"] <- "Del(2,):U(3,):R2"}
+    if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps==2,"type_4"] <- "Del(3,):U(3,):R2"}
     if(dim(indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps>2,])[1]>0){indel.b1[indel.b1$unit_length>2 & indel.b1$original_reps>2,"type_4"] <- "Del(3,):U(3,):R(3,9)"}
     indel.new <- rbind(indel.new,indel.b1)
   }
