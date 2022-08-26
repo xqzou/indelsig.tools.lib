@@ -16,3 +16,10 @@ usethis::use_data(indel_template_type_4,overwrite = TRUE)
 indel_type_4_figurelabel <- read.table("./indel_type_4_figurelabel.txt", sep = "\t",header = T, as.is = T)
 usethis::use_data(indel_type_4_figurelabel,overwrite = TRUE)
 
+
+indel_template_type_4_full <- read.table("./indel_template_type_4_full.txt", sep = "\t",header = T, as.is = T)
+usethis::use_data(indel_template_type_4_full,overwrite = TRUE)
+
+
+indel_template_type_4_full_figurelabel <- read.table("./indel_template_type_4_full_figurelabel.txt", sep = "\t",header = T, as.is = T)
+usethis::use_data(indel_template_type_4_full_figurelabel,overwrite = TRUE)

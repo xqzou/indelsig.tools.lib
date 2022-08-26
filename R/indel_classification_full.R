@@ -1,5 +1,5 @@
 
-#' Classify indels into 464 different types
+#' expand 89 channels
 #'
 #' @param indels A indel list. Columns include: "Sample","chr", "position", "REF", "ALT"
 #' @param genome.v : "hg19", "hg38"
@@ -490,6 +490,6 @@ assign_channels_mf <- function(indel.df) {
   #a=data.frame(table(indel.new$VariantID))
   #a=a[order(a$Freq,decreasing=T),]
   return(indel.new)
-} # 89 # removes single C/T indel in repeats >=10
+} #
 
 

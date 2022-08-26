@@ -40,4 +40,20 @@ gen_catalogue21 <- function(muts_list, sample_col){
 
 
 
+#' Generate indel catalogue in full channels
+#'
+#' @param muts_list A indel list
+#' @param sample_col Sample column name
+#' @return A full channel indel catalogue
+#' @export
+gen_fullcatalogue<- function(muts_list, sample_col){
+  indel_catalogue <- data.frame(table(muts_list[,sample_col],muts_list$type_4))
+  names(indel_catalogue) <- c("Sample","IndelType","freq")
+  indel_catalogue <- reshape2::dcast(indel_catalogue,IndelType~Sample,value.var="freq")
 
+
+  indel_catalogue <- merge(indel_template_type_4_full,indel_catalogue,by="IndelType",all.x=T)
+  indel_catalogue[is.na(indel_catalogue)] <- 0
+  rownames(indel_catalogue) <- indel_catalogue[,"IndelType"]
+  return(indel_catalogue[,-c(1:2),drop=FALSE])
+}
