@@ -31,7 +31,6 @@ indel_classifier_full <- function(indels, genome.v){
 #' @return An indel list with channel information
 #' @export
 assign_channels_mf <- function(indel.df) {
-
   indel.df$type_4 <- NULL   # Level 2: 464 channels
   indel.df$type_3 <- NULL   # Level 1: [+T]Rep=0; [+T]1<=Rep<=4; [+T]5<=Rep; [+C]Rep=0; [+C]1<=Rep<=4; [+C]5<=Rep;  [-T]Rep=1; [-T]2<=Rep<=4; [-T]5<=Rep; [-C]Rep=1; [-C]2<=Rep<=4; [-C]5<=Rep;
   indel.df$type_2 <- NULL   # For color: [+T]; [+C]; [-T]; [-C];
@@ -256,7 +255,7 @@ assign_channels_mf <- function(indel.df) {
     indel.b2 <- subset(indel.b1,indel.length>=5)
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- "Ins(5,):U(5,):R0"
+      indel.b2$type_4 <- "Ins(5,):R0"
       indel.new <- rbind(indel.new,indel.b2)
 
     }
@@ -286,7 +285,7 @@ assign_channels_mf <- function(indel.df) {
     indel.b2 <- subset(indel.b1, indel.length>=5)
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- "Ins(5,):U(5,):R0"
+      indel.b2$type_4 <- "Ins(5,):R0"
       indel.new <- rbind(indel.new,indel.b2)
 
     }
@@ -346,7 +345,7 @@ assign_channels_mf <- function(indel.df) {
     indel.b1$type_3 <- paste0("Del_nMer_",indel.b1$rep_level)
     indel.b1$type_4 <- paste0("Del_nMer","_R",indel.b1$original_reps)
 
-    indel.b2 <- subset(indel.b1, indel.length<=9 & indel.b1$original_reps<5)
+    indel.b2 <- subset(indel.b1, indel.length<=5 & indel.b1$original_reps<5)
     if(dim(indel.b2)[1]>0){
 
       indel.b2$type_4 <- paste0(indel.b2$type_1,indel.b2$indel.length,":U",indel.b2$unit_length,":R",indel.b2$original_reps)
@@ -354,7 +353,7 @@ assign_channels_mf <- function(indel.df) {
 
     }
 
-    indel.b2 <- subset(indel.b1, indel.length<=9 & indel.b1$original_reps>=5)
+    indel.b2 <- subset(indel.b1, indel.length<=5 & indel.b1$original_reps>=5)
     if(dim(indel.b2)[1]>0){
 
       indel.b2$type_4 <- paste0(indel.b2$type_1,indel.b2$indel.length,":U",indel.b2$unit_length,":R(5,9)")
@@ -362,14 +361,37 @@ assign_channels_mf <- function(indel.df) {
 
     }
 
-    indel.b2 <- subset(indel.b1, indel.length>9)
+    indel.b2 <- subset(indel.b1, indel.length>5 & indel.b1$unit_length==1)
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- "Del(10,):R(0,9)"
+      indel.b2$type_4 <- "Del(6,):U1:R(7,9)"
       indel.new <- rbind(indel.new,indel.b2)
 
     }
 
+    indel.b2 <- subset(indel.b1, indel.length>5 & indel.b1$unit_length==2)
+    if(dim(indel.b2)[1]>0){
+
+      indel.b2$type_4 <- "Del(6,):U2:R(4,9)"
+      indel.new <- rbind(indel.new,indel.b2)
+
+    }
+
+    indel.b2 <- subset(indel.b1, indel.length>5 & indel.b1$unit_length==3)
+    if(dim(indel.b2)[1]>0){
+
+      indel.b2$type_4 <- "Del(6,):U3:R(3,9)"
+      indel.new <- rbind(indel.new,indel.b2)
+
+    }
+
+    indel.b2 <- subset(indel.b1, indel.length>5 & indel.b1$unit_length>3)
+    if(dim(indel.b2)[1]>0){
+
+      indel.b2$type_4 <- "Del(6,):U(4,):R(2,9)"
+      indel.new <- rbind(indel.new,indel.b2)
+
+    }
 #    if(dim(indel.b1[indel.b1$indel.length<=9 & indel.b1$original_reps<5,])[1]>0){indel.b1[indel.b1$indel.length<=9 & indel.b1$original_reps<5,"type_4"] <- paste0(indel.b1$type_1,indel.b1$indel.length,":U",indel.b1$unit_length,":R",indel.b1$original_reps)}
 #    if(dim(indel.b1[indel.b1$indel.length<=9 & indel.b1$original_reps>=5,])[1]>0){indel.b1[indel.b1$indel.length<=9 & indel.b1$original_rep>=5,"type_4"] <- paste0(indel.b1$type_1,indel.b1$indel.length,":U",indel.b1$unit_length,":R(5,9)")}
 
@@ -421,18 +443,34 @@ assign_channels_mf <- function(indel.df) {
     indel.b1$type_2 <- "Del_NonRep"
     indel.b1$type_3 <- "Del_NonRep"
 
-    indel.b2 <- subset(indel.b1, indel.length<10)
+    indel.b2 <- subset(indel.b1, indel.length<10 & unit_length==1)
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- paste0(indel.b2$type_1,indel.b2$indel.length, ":U",indel.b2$unit_length, ":R1")
+      indel.b2$type_4 <- paste0(indel.b2$type_1,indel.b2$indel.length, ":U1:R1")
       indel.new <- rbind(indel.new,indel.b2)
 
     }
 
-    indel.b2 <- subset(indel.b1, indel.length>=10)
+    indel.b2 <- subset(indel.b1, indel.length>=10 & unit_length==1)
     if(dim(indel.b2)[1]>0){
 
-      indel.b2$type_4 <- "Del(10,):U(10,):R1"
+      indel.b2$type_4 <- "Del(10,):U1:R1"
+      indel.new <- rbind(indel.new,indel.b2)
+
+    }
+
+    indel.b2 <- subset(indel.b1, indel.length<10 & unit_length>1)
+    if(dim(indel.b2)[1]>0){
+
+      indel.b2$type_4 <- paste0(indel.b2$type_1,indel.b2$indel.length, ":U(2,):R1")
+      indel.new <- rbind(indel.new,indel.b2)
+
+    }
+
+    indel.b2 <- subset(indel.b1, indel.length>=10 & unit_length>1)
+    if(dim(indel.b2)[1]>0){
+
+      indel.b2$type_4 <- "Del(10,):U(2,):R1"
       indel.new <- rbind(indel.new,indel.b2)
 
     }

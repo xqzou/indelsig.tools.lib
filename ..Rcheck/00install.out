@@ -2,6 +2,7 @@
 ** using staged installation
 ** libs
 make: Nothing to be done for `all'.
+make: `symbols.rds' is up to date.
 installing to /Users/xz388/Documents/GitHub/indelsig.tools.lib/..Rcheck/00LOCK-indelsig.tools.lib/00new/indelsig.tools.lib/libs
 ** R
 ** data

@@ -299,6 +299,7 @@ assign_channels_m5 <- function(indel.df) {
     indel.b1$type_4 <- paste0("Del_NonRep_L",indel.b1$indel.length)
     if(dim(indel.b1[indel.b1$indel.length<5,])[1]>0){indel.b1[indel.b1$indel.length<5,"type_4"] <- "Del(2,4):R1"}
     if(dim(indel.b1[indel.b1$indel.length>=5,])[1]>0){indel.b1[indel.b1$indel.length>=5,"type_4"] <- "Del(5,):R1"}
+
     indel.new <- rbind(indel.new,indel.b1)
   }
   # Complex # 11821

@@ -29,7 +29,15 @@ Found the following hidden files and directories:
   .git
 These were most likely included in error. See section ‘Package
 structure’ in the ‘Writing R Extensions’ manual.
-* checking for portable file names ... OK
+* checking for portable file names ... NOTE
+Found the following non-portable file paths:
+  indelsig.tools.lib/.Rproj.user/shared/notebooks/275570AA-Vignette_indelsig/1/7BB1E34C501C3DDE/chunks.json
+  indelsig.tools.lib/.Rproj.user/shared/notebooks/275570AA-Vignette_indelsig/1/s/czxrlhk14ey3c/000002.csv
+
+Tarballs are only required to store paths of up to 100 bytes and cannot
+store those of more than 256 bytes, with restrictions including to 100
+bytes for the final component.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking for sufficient/correct file permissions ... OK
 * checking whether package ‘indelsig.tools.lib’ can be installed ... OK
 * checking installed package size ... OK
@@ -273,14 +281,7 @@ to your NAMESPACE file.
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd cross-references ... OK
-* checking for missing documentation entries ... WARNING
-Undocumented code objects:
-  ‘indel_template_type_full’
-Undocumented data sets:
-  ‘indel_template_type_full’
-All user-level objects in a package should have documentation entries.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
+* checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
@@ -305,4 +306,4 @@ Package vignette without corresponding single PDF/HTML:
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 5 WARNINGs, 4 NOTEs
+Status: 4 WARNINGs, 5 NOTEs

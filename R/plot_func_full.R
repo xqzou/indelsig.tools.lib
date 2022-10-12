@@ -30,7 +30,7 @@ gen_plot_catalougefull_single<- function(muts_basis,text_size,plot_title){
   # color blocks for indel bases
 
   entry <- table(indel_template_type_4_full_figurelabel$Indel)
-  order_entry <- c("Ins(C)", "Ins(T)", "Ins(2,):R(0,9)", "Del(C)", "Del(T)", "Del(2,):R(0,9)", "Del(2,):M(1,)", "Complex")
+  order_entry <- c("Ins(C)", "Ins(T)", "Ins(2,):R(0,9)", "Del(C)", "Del(T)", "Del(2,):R(1,9)", "Del(2,):M(1,)", "Complex")
   entry <- entry[order_entry]
   blocks <- data.frame(Type=unique(indel_template_type_4_full_figurelabel$Indel),
                        fill=indel_mypalette_fill,
@@ -129,7 +129,7 @@ gen_plot_catalougefull_single_noXlabel<- function(muts_basis,text_size,plot_titl
   indel_positions <- indel_template_type_4_full_figurelabel$IndelType
   indel_positions_labels <- indel_template_type_4_full_figurelabel$Figlabel
   entry <- table(indel_template_type_4_full_figurelabel$Indel)
-  order_entry <- c("Ins(C)", "Ins(T)", "Ins(2,)", "Del(C)", "Del(T)", "Del(2,):R(0,9)", "Del(2,):M(1,)", "Complex")
+  order_entry <- c("Ins(C)", "Ins(T)", "Ins(2,)", "Del(C)", "Del(T)", "Del(2,):R(1,9)", "Del(2,):M(1,)", "Complex")
   entry <- entry[order_entry]
   blocks <- data.frame(Type=unique(indel_template_type_4_full_figurelabel$Indel),
                        fill=indel_mypalette_fill,
