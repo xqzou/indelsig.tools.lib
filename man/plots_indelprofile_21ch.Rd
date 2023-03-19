@@ -20,7 +20,7 @@ plots_indelprofile_21ch(muts_basis, colnum, h, w, text_size, outputname)
 \item{outputname}{Output file name of the plot}
 }
 \value{
-A plot including 89-channel indel profile of multiple samples
+A plot including 21-channel indel profile of multiple samples
 }
 \description{
 Plot indel profile in a 21-channel bar plot, original plots_type_4_m4_89 function

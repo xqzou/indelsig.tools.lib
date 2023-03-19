@@ -28,8 +28,8 @@ gen_catalogue21 <- function(muts_list, sample_col){
   names(indel_catalogue) <- c("Sample","type_3","freq")
   indel_catalogue <- reshape2::dcast(indel_catalogue,type_3~Sample,value.var="freq")
 
-  indel_template_type_3 <- data.frame("type_3"=c("[+C]NonRep","[+C]ShortRep_leq4","[+C]LongRep_g4","[+T]NonRep","[+T]ShortRep_leq4","[+T]LongRep_g4","Ins_NonRep","Ins_nMer_ShortRep_leq4","Ins_nMer_LongRep_g4",
-                                                 "[-C]NonRep","[-C]ShortRep_leq4","[-C]LongRep_g4","[-T]NonRep","[-T]ShortRep_leq4","[-T]LongRep_g4","Del_NonRep","Del_nMer_ShortRep_leq4","Del_nMer_LongRep_g4","Del_Spaced_short_leq5","Del_Spaced_long_g5",
+  indel_template_type_3 <- data.frame("type_3"=c("[InsC]NonRep","[InsC]ShortRep_leq4","[InsC]LongRep_g4","[InsT]NonRep","[InsT]ShortRep_leq4","[InsT]LongRep_g4","Ins_NonRep","Ins_nMer_ShortRep_leq4","Ins_nMer_LongRep_g4",
+                                                 "[DelC]NonRep","[DelC]ShortRep_leq4","[DelC]LongRep_g4","[DelT]NonRep","[DelT]ShortRep_leq4","[DelT]LongRep_g4","Del_NonRep","Del_nMer_ShortRep_leq4","Del_nMer_LongRep_g4","Del_Spaced_short_leq5","Del_Spaced_long_g5",
                                                  "Complex"))
   indel_catalogue <- merge(indel_template_type_3,indel_catalogue,by="type_3",all.x=T)
   indel_catalogue[is.na(indel_catalogue)] <- 0

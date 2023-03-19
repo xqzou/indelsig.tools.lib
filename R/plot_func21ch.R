@@ -6,11 +6,11 @@
 #' @return A 21-channel indel profile plot
 #' @export
 gen_plot_catalouge21_single <- function(muts_basis,text_size,plot_title){
-  indel_template_type_3 <- data.frame("IndelType"=c("[+C]NonRep","[+C]ShortRep_leq4","[+C]LongRep_g4","[+T]NonRep","[+T]ShortRep_leq4","[+T]LongRep_g4","Ins_NonRep","Ins_nMer_ShortRep_leq4","Ins_nMer_LongRep_g4",
-                                                 "[-C]NonRep","[-C]ShortRep_leq4","[-C]LongRep_g4","[-T]NonRep","[-T]ShortRep_leq4","[-T]LongRep_g4","Del_NonRep","Del_nMer_ShortRep_leq4","Del_nMer_LongRep_g4","Del_Spaced_short_leq5","Del_Spaced_long_g5",
-                                                 "Complex"),
-                                      "Indel"=c("[+C]","[+C]","[+C]","[+T]","[+T]","[+T]","Ins_nMer","Ins_nMer","Ins_NonRep",
-                                                 "[-C]","[-C]","[-C]","[-T]","[-T]","[-T]","Del_nMer","Del_nMer","Del_NonRep","Del_Spaced","Del_Spaced",
+  indel_template_type_3 <- data.frame("IndelType"=c("[InsC]NonRep","[InsC]ShortRep_leq4","[InsC]LongRep_g4","[InsT]NonRep","[InsT]ShortRep_leq4","[InsT]LongRep_g4","Ins_NonRep","Ins_nMer_ShortRep_leq4","Ins_nMer_LongRep_g4",
+                                                    "[DelC]NonRep","[DelC]ShortRep_leq4","[DelC]LongRep_g4","[DelT]NonRep","[DelT]ShortRep_leq4","[DelT]LongRep_g4","Del_NonRep","Del_nMer_ShortRep_leq4","Del_nMer_LongRep_g4","Del_Spaced_short_leq5","Del_Spaced_long_g5",
+                                                    "Complex"),
+                                      "Indel"=c("Ins(C)","Ins(C)","Ins(C)","Ins(T)","Ins(T)","Ins(T)","Ins(2,)","Ins(2,)","Ins(2,)",
+                                                 "Del(C)","Del(C)","Del(C)","Del(T)","Del(T)","Del(T)","Del(2,):M(1,)","Del(2,):M(1,)","Del(2,):R(0,9)","Del(2,):R(0,9)","Del(2,):R(0,9)",
                                                  "Complex")
                                       )
 
@@ -23,20 +23,30 @@ gen_plot_catalouge21_single <- function(muts_basis,text_size,plot_title){
 
 
   # indel_mypalette_fill <- c("skyblue","orange", "blue","tomato","greenyellow","pink","grey","purple","deeppink","black")
-  indel_mypalette_fill <- c("#06C2F4", # [-C]
-                            "#FF8642", # [-T]
-                            "royalblue", #"#007996"  [+C]
-                            "#C0362C", # [+T]
-                            "#000000", # FEABB9 Complex
-                            "#B1DDA1", # Del_nMer
-                            "#C3B7AC", # Del_NonRep
-                            "#CF97D7", # Del_Spaced
-                            "limegreen", #"#668D3C"  Ins_nMer
-                            "#816C5B")  # Ins_NonRep
+ # indel_mypalette_fill <- c("#06C2F4", # [-C]
+  #                           "#FF8642", # [-T]
+  #                           "royalblue", #"#007996"  [+C]
+  #                           "#C0362C", # [+T]
+  #                           "#000000", # FEABB9 Complex
+  #                           "#B1DDA1", # Del_nMer
+  #                          "#C3B7AC", # Del_NonRep
+  #                          "#CF97D7", # Del_Spaced
+  #                          "limegreen", #"#668D3C"  Ins_nMer
+  #                          "#816C5B")  # Ins_NonRep
+  indel_mypalette_fill <- c("#000000", # FEABB9 Complex
+                            "#762A83", # Del(2,):M(1,)
+                            "#EE3377", # Del(2,):R(0,9) #EE6677
+                            "#004488", # Del(C)
+                            "#997700", # Del(T)
+                            "#EE99AA", #"#668D3C"  Ins(2,)
+                            "#6699CC", #"#007996"  Ins(C)
+                            "#EECC66") # Ins(T)
 
   indel_positions <- indel_template_type_3$IndelType
   entry <- table(indel_template_type_3$Indel)
-  order_entry <- c("[+C]", "[+T]", "Ins_nMer", "Ins_NonRep", "[-C]", "[-T]", "Del_nMer", "Del_NonRep", "Del_Spaced", "Complex")
+ # order_entry <- c("[+C]", "[+T]", "Ins_nMer", "Ins_NonRep", "[-C]", "[-T]", "Del_nMer", "Del_NonRep", "Del_Spaced", "Complex")
+  order_entry <- c("Ins(C)", "Ins(T)", "Ins(2,)", "Del(C)", "Del(T)", "Del(2,):R(0,9)", "Del(2,):M(1,)", "Complex")
+
   entry <- entry[order_entry]
   blocks <- data.frame(Type=unique(indel_template_type_3$Indel),
                        fill=indel_mypalette_fill,
@@ -44,8 +54,11 @@ gen_plot_catalouge21_single <- function(muts_basis,text_size,plot_title){
                        xmax=cumsum(entry)+0.5)
   blocks$ymin <- max(muts_basis_melt$freq)*1.08#
   blocks$ymax <- max(muts_basis_melt$freq)*1.2
-  blocks$labels <-c("+C", "+T", "+M", "+N", "-C", "-T", "-M", "-N", "-Mh", "X")
-  blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
+#  blocks$labels <-c("+C", "+T", "+M", "+N", "-C", "-T", "-M", "-N", "-Mh", "X")
+#  blocks$cl <-c("white", "white", "white", "white", "black", "black", "black", "black", "black", "white")
+
+  blocks$labels <-c("1bp C", "1bp T", ">=2bp", "1bp C", "1bp T", ">=2bp", "Mh", "X")
+  blocks$cl <-c("black", "black", "black", "white", "white", "white", "white",  "white")
 
 
   p <- ggplot2::ggplot(data=muts_basis_melt, ggplot2::aes(x=IndelType, y=freq,fill=Indel))+ ggplot2::geom_bar(stat="identity",position="dodge", width=.7)+ggplot2::xlab("Indel Types")+ggplot2::ylab("Count")
@@ -79,7 +92,7 @@ gen_plot_catalouge21_single <- function(muts_basis,text_size,plot_title){
 #' @param w Width of the plot
 #' @param text_size Size of text
 #' @param outputname Output file name of the plot
-#' @return A plot including 89-channel indel profile of multiple samples
+#' @return A plot including 21-channel indel profile of multiple samples
 #' @import gridExtra
 #' @export
 plots_indelprofile_21ch<- function(muts_basis,colnum, h,w,text_size,outputname){
